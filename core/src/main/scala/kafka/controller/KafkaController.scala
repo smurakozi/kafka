@@ -1197,7 +1197,7 @@ class KafkaController(val config: KafkaConfig, zkClient: KafkaZkClient, time: Ti
     }
 
     try {
-      zkClient.checkedEphemeralCreate(ControllerZNode.path, ControllerZNode.encode(config.brokerId, timestamp))
+      zkClient.registerControllerInZk(config.brokerId, timestamp)
       info(s"${config.brokerId} successfully elected as the controller")
       activeControllerId = config.brokerId
       onControllerFailover()
